@@ -1,0 +1,46 @@
+{
+  "collectionName": "components_layer_attributes",
+  "info": {
+    "displayName": "attribute",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "key": {
+      "type": "string",
+      "required": true
+    },
+    "file": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "string",
+        "number",
+        "boolean",
+        "date",
+        "file"
+      ],
+      "required": true,
+      "default": "string"
+    },
+    "stringValue": {
+      "type": "string"
+    },
+    "numberValue": {
+      "type": "integer"
+    },
+    "booleanValue": {
+      "type": "boolean"
+    },
+    "dateValue": {
+      "type": "date"
+    }
+  }
+}

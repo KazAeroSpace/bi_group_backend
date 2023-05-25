@@ -1,0 +1,124 @@
+{
+  "kind": "collectionType",
+  "collectionName": "layers",
+  "info": {
+    "singularName": "layer",
+    "pluralName": "layers",
+    "displayName": "Layer",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "required": true
+    },
+    "url": {
+      "type": "string",
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "ElevationLayer",
+        "FeatureLayer",
+        "IntegratedMeshLayer",
+        "TileLayer",
+        "SceneLayer"
+      ],
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
+    "groupLayerAttributes": {
+      "displayName": "GroupAttribute",
+      "type": "component",
+      "repeatable": true,
+      "component": "layer.group-attribute",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "objectid": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "string",
+      "required": true
+    },
+    "loadPriority": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "enumeration",
+      "enum": [
+        "HIGH",
+        "MIDDLE",
+        "LOW"
+      ],
+      "required": true,
+      "default": "LOW"
+    },
+    "heading": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "integer",
+      "max": 360,
+      "min": 0,
+      "required": true
+    },
+    "opacity": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "decimal",
+      "min": 0,
+      "max": 1,
+      "default": 1,
+      "required": true
+    },
+    "icon": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    }
+  }
+}

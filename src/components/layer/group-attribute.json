@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_layer_group_attributes",
+  "info": {
+    "displayName": "GroupAttribute",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "objectid": {
+      "type": "string",
+      "required": true
+    },
+    "layerAttributes": {
+      "type": "component",
+      "repeatable": true,
+      "component": "layer.attribute"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "kind": "singleType",
+  "collectionName": "arcgises",
+  "info": {
+    "singularName": "arcgis",
+    "pluralName": "arcgises",
+    "displayName": "ArcGIS",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "auth": {
+      "type": "component",
+      "repeatable": false,
+      "component": "arcgis.auth"
+    }
+  }
+}
