@@ -41,7 +41,9 @@
         "FeatureLayer",
         "IntegratedMeshLayer",
         "TileLayer",
-        "SceneLayer"
+        "SceneLayer",
+        "BuildingSceneLayer",
+        "WMTSLayer"
       ],
       "required": true,
       "pluginOptions": {
@@ -68,22 +70,7 @@
         }
       },
       "type": "string",
-      "required": true
-    },
-    "loadPriority": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      },
-      "type": "enumeration",
-      "enum": [
-        "HIGH",
-        "MIDDLE",
-        "LOW"
-      ],
-      "required": true,
-      "default": "LOW"
+      "required": false
     },
     "heading": {
       "pluginOptions": {
@@ -94,7 +81,8 @@
       "type": "integer",
       "max": 360,
       "min": 0,
-      "required": true
+      "required": true,
+      "default": 0
     },
     "opacity": {
       "pluginOptions": {
@@ -109,16 +97,69 @@
       "required": true
     },
     "icon": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images"
       ],
-      "type": "media",
-      "multiple": false,
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
       }
+    },
+    "hasClickListener": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "boolean",
+      "default": false
+    },
+    "group": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::group.group",
+      "inversedBy": "layers"
+    },
+    "visible": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "boolean",
+      "default": true
+    },
+    "controlled": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "boolean",
+      "default": true
+    },
+    "highlightOnClick": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "boolean",
+      "default": false
+    },
+    "highlightColor": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "customField",
+      "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
+      "customField": "plugin::color-picker.color"
     }
   }
 }

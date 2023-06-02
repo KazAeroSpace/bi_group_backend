@@ -25,7 +25,8 @@
         "number",
         "boolean",
         "date",
-        "file"
+        "file",
+        "link"
       ],
       "required": true,
       "default": "string"

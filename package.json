@@ -10,6 +10,7 @@
     "strapi": "strapi"
   },
   "dependencies": {
+    "@strapi/plugin-color-picker": "^4.10.7",
     "@strapi/plugin-documentation": "^4.10.5",
     "@strapi/plugin-i18n": "4.10.5",
     "@strapi/plugin-users-permissions": "4.10.5",
@@ -18,6 +19,7 @@
     "node-fetch": "^2.6.11",
     "pg": "^8.11.0",
     "qs": "^6.11.2",
+    "strapi-plugin-config-sync": "^1.1.2",
     "strapi-plugin-import-export-entries": "^1.19.1"
   },
   "author": {
