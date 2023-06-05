@@ -1,5 +1,8 @@
 FROM node:18-alpine as base
 
+RUN apk update
+RUN apk add --no-cache build-base gcc autoconf automake zlib-dev libpng-dev vips-dev
+
 ENV NODE_ENV production
 ENV HOST 0.0.0.0
 ENV PORT 1337
@@ -10,9 +13,6 @@ ENV TRANSFER_TOKEN_SALT sf2xTev7kS3KCSYxf281Qw==
 ENV JWT_SECRET MnDgbnv775UhyGBJiXVxMA==
 
 FROM base as builder
-
-RUN apk update
-RUN apk add --no-cache build-base gcc autoconf automake zlib-dev libpng-dev vips-dev
 
 WORKDIR /opt
 COPY package*.json ./
@@ -25,7 +25,6 @@ RUN npm run build
 
 FROM base as production
 
-RUN apk add --no-cache vips-dev
 RUN npm install pm2 -g
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 strapi
