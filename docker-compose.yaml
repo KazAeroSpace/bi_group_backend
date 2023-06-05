@@ -1,0 +1,35 @@
+version: "3.1"
+
+services:
+    postgres:
+      image: postgres:15.3-alpine
+      container_name: strapi_db_production
+      ports:
+        - "5432:5432"
+      volumes:
+        - ./postgresql/data:/var/lib/postgresql/data
+      environment:
+        - POSTGRES_PASSWORD=%AUj*vvS)&Dr2X$+
+        - POSTGRES_USER=strapi_postgres_user
+        - POSTGRES_DB=strapi
+    strapi:
+      build: .
+      container_name: strapi_production
+      ports:
+        - "1337:1337"
+      volumes:
+        - ./strapi/uploads:/app/public/uploads
+      environment:
+        - PORT=1337
+        - DATABASE_HOST=postgres
+        - DATABASE_USERNAME=strapi_postgres_user
+        - DATABASE_PASSWORD=%AUj*vvS)&Dr2X$+
+        - ARCGIS_SERVER_URL=https://almaty.kazaerospace.kz
+        - ARCGIS_AUTH_USERNAME=a.krassavin
+        - ARCGIS_AUTH_PASSWORD='A.krassavin123!@#'
+      depends_on:
+        - postgres
+
+networks:
+  strapi:
+    driver: bridge

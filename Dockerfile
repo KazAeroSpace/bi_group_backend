@@ -9,56 +9,35 @@ ENV ADMIN_JWT_SECRET dPlggnrCcijdYRCfo5G8jQ==
 ENV TRANSFER_TOKEN_SALT sf2xTev7kS3KCSYxf281Qw==
 ENV JWT_SECRET MnDgbnv775UhyGBJiXVxMA==
 
-FROM base as dev_deps
+FROM base as builder
 
 RUN apk update
 RUN apk add --no-cache build-base gcc autoconf automake zlib-dev libpng-dev vips-dev
 
-WORKDIR app
-
+WORKDIR /opt
 COPY package*.json ./
-
 RUN npm install
+ENV PATH /opt/node_modules/.bin:$PATH
 
-FROM base as prod_deps
-
-RUN apk add --no-cache vips-dev
-
-WORKDIR app
-
-COPY package*.json ./
-
-RUN npm install --omit=dev
-
-FROM base as builder
-
-WORKDIR app
-
-COPY package*.json ./
-
-COPY --from=dev_deps /app/node_modules ./node_modules
-
+WORKDIR /opt/app
 COPY . .
-
 RUN npm run build
 
 FROM base as production
 
-WORKDIR /app
-
+RUN apk add --no-cache vips-dev
+RUN npm install pm2 -g
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 strapi
 
-EXPOSE $PORT
-
-COPY --from=prod_deps /app/node_modules ./node_modules
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/.cache ./.cache
-COPY ./public ./public
-COPY ./database ./database
-
-COPY package.json .
-
 USER strapi
 
-ENTRYPOINT ["npm", "run", "start"]
+WORKDIR /app
+
+EXPOSE $PORT
+
+COPY --chown=strapi:strapi --from=builder /opt/app ./
+
+RUN npm install --omit=dev
+
+ENTRYPOINT ["pm2-runtime", "start", "npm", "--name", "app", "--", "run", "start"]
