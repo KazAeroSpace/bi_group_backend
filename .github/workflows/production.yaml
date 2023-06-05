@@ -26,13 +26,13 @@ jobs:
         with:
           context: .
           push: false
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/strapi:latest
-          outputs: type=docker,dest=/tmp/walonade-strapi.tar
+          tags: ${{ secrets.DOCKER_USERNAME }}/strapi:latest
+          outputs: type=docker,dest=/tmp/${{ secrets.DOCKER_USERNAME }}-strapi.tar
 
       - name: Deploy app
         uses: garygrossgarten/github-action-scp@release
         with:
-          local: /tmp/walonade-strapi.tar
+          local: /tmp/${{ secrets.DOCKER_USERNAME }}-strapi.tar
           remote: ${{ secrets.REMOTE_SERVER_FOLDER }}
           host: ${{ secrets.REMOTE_SERVER_IP }}
           port: ${{ secrets.REMOTE_SERVER_PORT }}
