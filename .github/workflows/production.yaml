@@ -27,4 +27,4 @@ jobs:
 #          outputs: type=docker,dest=/tmp/strapi.tar
 
       - name: Rerun application
-        run: docker-compose -f /home/badmin/docker-compose.yaml up --no-deps strapi -d
+        run: docker-compose -f /home/badmin/docker-compose.yaml up --no-deps -d strapi
