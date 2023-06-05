@@ -7,7 +7,7 @@ on:
 
 jobs:
   publish:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -27,37 +27,6 @@ jobs:
           context: .
           push: false
           tags: ${{ secrets.DOCKER_USERNAME }}/strapi:latest
-          outputs: type=docker,dest=strapi.tar
-
-#      - name: Deploy app
-#        uses: garygrossgarten/github-action-scp@release
-#        with:
-#          local: strapi.tar
-#          remote: ${{ secrets.REMOTE_SERVER_FOLDER }}
-#          host: ${{ secrets.REMOTE_SERVER_IP }}
-#          port: ${{ secrets.REMOTE_SERVER_PORT }}
-#          username: ${{ secrets.REMOTE_SERVER_USER }}
-#          password: ${{ secrets.REMOTE_SERVER_PASSWORD }}
-#          rmRemote: true
-
-      - name: Deploy app
-        uses: mdallasanta/ssh-scp-deploy@v1.2.0
-        with:
-          local: './strapi.tar'
-          remote: '/home/${{ secrets.REMOTE_SERVER_USER }}'
-          host: ${{ secrets.REMOTE_SERVER_IP }}
-          port: ${{ secrets.REMOTE_SERVER_PORT }}
-          user: ${{ secrets.REMOTE_SERVER_USER }}
-          password: ${{ secrets.REMOTE_SERVER_PASSWORD }}
 
       - name: Rerun application
-        uses: appleboy/ssh-action@v0.1.10
-        with:
-          host: ${{ secrets.REMOTE_SERVER_IP }}
-          username: ${{ secrets.REMOTE_SERVER_USER }}
-          password: ${{ secrets.REMOTE_SERVER_PASSWORD }}
-          port: ${{ secrets.REMOTE_SERVER_PORT }}
-          script: |
-            docker load --input ${{ secrets.REMOTE_SERVER_FOLDER }}/strapi.tar
-            rm ${{ secrets.REMOTE_SERVER_FOLDER }}/strapi.tar
-            docker-compose -f ${{ secrets.REMOTE_SERVER_FOLDER }}/docker-compose.yaml up --no-deps strapi -d
+        run: docker-compose -f /home/badmin/docker-compose.yaml up --no-deps strapi -d
