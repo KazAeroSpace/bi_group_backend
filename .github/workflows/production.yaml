@@ -29,7 +29,7 @@ jobs:
           tags: walonade/strapi:latest
 
       - name: Save
-        run: docker save -o walonade-strapi.tar walonade/strapi:latest
+        run: /usr/bin/docker save -o walonade-strapi.tar walonade/strapi:latest
 
       - name: Deploy app
         uses: garygrossgarten/github-action-scp@release
