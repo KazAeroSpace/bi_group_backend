@@ -27,6 +27,7 @@ FROM base as production
 
 RUN apk add --no-cache vips-dev
 RUN npm install pm2 -g
+RUN npm install --omit=dev
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 strapi
 
@@ -37,7 +38,5 @@ WORKDIR /app
 EXPOSE $PORT
 
 COPY --chown=strapi:strapi --from=builder /opt/app ./
-
-RUN npm install --omit=dev
 
 ENTRYPOINT ["pm2-runtime", "start", "npm", "--name", "app", "--", "run", "start"]
