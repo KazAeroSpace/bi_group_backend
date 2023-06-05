@@ -59,4 +59,5 @@ jobs:
           port: ${{ secrets.REMOTE_SERVER_PORT }}
           script: |
             docker load --input ${{ secrets.REMOTE_SERVER_FOLDER }}/strapi.tar
-            docker-compose up
+            rm ${{ secrets.REMOTE_SERVER_FOLDER }}/strapi.tar
+            docker-compose -f ${{ secrets.REMOTE_SERVER_FOLDER }}/docker-compose.yaml up --no-deps strapi -d
