@@ -30,7 +30,7 @@ jobs:
           outputs: type=docker,dest=strapi.tar
 
       - name: Fix Permission
-        run: chmod 777 strapi.tar
+        run: chmod -R 777 strapi.tar
 
       - name: Deploy app
         uses: garygrossgarten/github-action-scp@release
