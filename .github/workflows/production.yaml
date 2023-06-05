@@ -29,9 +29,6 @@ jobs:
           tags: ${{ secrets.DOCKER_USERNAME }}/strapi:latest
           outputs: type=docker,dest=strapi.tar
 
-      - name: Fix Permission
-        run: chmod -R 777 strapi.tar
-
 #      - name: Deploy app
 #        uses: garygrossgarten/github-action-scp@release
 #        with:
@@ -47,7 +44,7 @@ jobs:
         uses: mdallasanta/ssh-scp-deploy@v1.2.0
         with:
           local: './strapi.tar'
-          remote: ${{ secrets.REMOTE_SERVER_FOLDER }}
+          remote: '/home/${{ secrets.REMOTE_SERVER_USER }}'
           host: ${{ secrets.REMOTE_SERVER_IP }}
           port: ${{ secrets.REMOTE_SERVER_PORT }}
           user: ${{ secrets.REMOTE_SERVER_USER }}
