@@ -44,7 +44,7 @@ jobs:
 #          rmRemote: true
 
       - name: Deploy app
-        uses: mdallasanta/ssh-scp-deploy@release
+        uses: mdallasanta/ssh-scp-deploy@v1.2.0
         with:
           local: './strapi.tar'
           remote: ${{ secrets.REMOTE_SERVER_FOLDER }}
