@@ -27,7 +27,7 @@ FROM base as production
 
 RUN apk add --no-cache vips-dev
 RUN npm install pm2 -g
-RUN npm install --omit=dev
+RUN npm install --production
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 strapi
 
