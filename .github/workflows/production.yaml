@@ -27,7 +27,7 @@ jobs:
           context: .
           push: false
           tags: ${{ secrets.DOCKER_USERNAME }}/strapi:latest
-          outputs: type=docker,dest=/tmp/strapi.tar
+          outputs: type=docker,dest=strapi.tar
 
 #      - name: Deploy app
 #        uses: garygrossgarten/github-action-scp@release
@@ -40,16 +40,15 @@ jobs:
 #          password: ${{ secrets.REMOTE_SERVER_PASSWORD }}
 #          rmRemote: true
 
-      - name: copy file via scp
-        uses: appleboy/scp-action@v0.1.4
+      - name: Deploy app
+        uses: mdallasanta/ssh-scp-deploy@v1.2.0
         with:
-            host: ${{ secrets.REMOTE_SERVER_IP }}
-            username: ${{ secrets.REMOTE_SERVER_USER }}
-            password: ${{ secrets.REMOTE_SERVER_PASSWORD }}
-            port: ${{ secrets.REMOTE_SERVER_PORT }}
-            source: '/tmp/strapi.tar'
-            target: ${{ secrets.REMOTE_SERVER_FOLDER }}
-            rm: true
+          local: './strapi.tar'
+          remote: '/home/${{ secrets.REMOTE_SERVER_USER }}'
+          host: ${{ secrets.REMOTE_SERVER_IP }}
+          port: ${{ secrets.REMOTE_SERVER_PORT }}
+          user: ${{ secrets.REMOTE_SERVER_USER }}
+          password: ${{ secrets.REMOTE_SERVER_PASSWORD }}
 
       - name: Rerun application
         uses: appleboy/ssh-action@v0.1.10
