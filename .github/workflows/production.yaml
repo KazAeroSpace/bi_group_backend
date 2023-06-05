@@ -27,12 +27,15 @@ jobs:
           context: .
           push: false
           tags: ${{ secrets.DOCKER_USERNAME }}/strapi:latest
-          outputs: type=docker,dest=./strapi.tar
+          outputs: type=docker,dest=strapi.tar
+
+      - name: Fix Permission
+        run: chmod 777 strapi.tar
 
       - name: Deploy app
         uses: garygrossgarten/github-action-scp@release
         with:
-          local: ./strapi.tar
+          local: strapi.tar
           remote: ${{ secrets.REMOTE_SERVER_FOLDER }}
           host: ${{ secrets.REMOTE_SERVER_IP }}
           port: ${{ secrets.REMOTE_SERVER_PORT }}
